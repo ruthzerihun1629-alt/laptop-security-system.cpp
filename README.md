@@ -1,124 +1,76 @@
-﻿# laptop-security-system.cpp
-#include "functions.h"
+# Laptop ownership System (C++)
 
-void addLaptop(string idArr[], string serialArr[], int* count, int maxStudents) {
-    if (*count >= maxStudents) {
-        cout << "System storage full.\n";
-        return;
-    }
+This is a menu-driven C++ program designed to manage laptop ownership records for university students. Each student is allowed to own only one laptop, identified by a unique serial number.
 
-    string id, serial;
-    cout << "Enter Student ID: ";
-    cin >> id;
-    for (int i = 0; i < 3; i++)
-        id[i] = toupper(id[i]);
+## Features
 
-    if (!isValidID(id)) {
-        cout << "Invalid ID format.\n";
-        return;
-    }
+- Register a laptop for a new student
+- Update a laptop serial number if a laptop is lost
+- Check the owner of a laptop using its serial number
+- Search for a laptop using a student ID
+- Remove a laptop record when a student leaves
+- Display all registered laptop records
 
-    if (findStudent(id, idArr, *count) != -1) {
-        cout << "Student already has a laptop. Update serial if lost.\n";
-        return;
-    }
+## Student ID Format
 
-    cout << "Enter Laptop Serial Number: ";
-    cin >> serial;
+A valid student ID must meet the following requirements:
+- Exactly 9 characters long
+- Starts with the letters ETS
+- Ends with 6 numeric digits
 
-    if (serialExists(serial, serialArr, *count)) {
-        cout << "This laptop already belongs to another student.\n";
-        return;
-    }
+Example:
 
-    idArr[*count] = id;
-    serialArr[*count] = serial;
-    (*count)++;
-    cout << "Laptop registered successfully.\n";
-}
+ETS123456
 
-void updateLaptop(string idArr[], string serialArr[], int count) {
-    string id, newSerial;
-    cout << "Enter Student ID: ";
-    cin >> id;
-    for (int i = 0; i < 3; i++)
-        id[i] = toupper(id[i]);
+````
 
-    int index = findStudent(id, idArr, count);
-    if (index == -1) {
-        cout << "Student not found.\n";
-        return;
-    }
+## Program Description
 
-    cout << "Enter New Laptop Serial Number: ";
-    cin >> newSerial;
+The program uses two parallel arrays:
+- One array to store student IDs
+- One array to store laptop serial numbers
 
-    if (serialExists(newSerial, serialArr, count)) {
-        cout << "This serial already exists.\n";
-        return;
-    }
+It applies input validation to ensure:
+- No duplicate student IDs
+- No duplicate laptop serial numbers
+- Correct student ID format
+- Accurate check-out operations
 
-    serialArr[index] = newSerial;
-    cout << "Laptop serial updated successfully.\n";
-}
+The system is controlled through a menu that allows the user to perform different operations until the program is terminated.
 
-void checkLaptop(string serialArr[], string idArr[], int count) {
-    string serial;
-    cout << "Enter Laptop Serial Number: ";
-    cin >> serial;
+## Menu Options
 
-    for (int i = 0; i < count; i++) {
-        if (serialArr[i] == serial) {
-            cout << "Laptop belongs to Student ID: " << idArr[i] << endl;
-            return;
-        }
-    }
-    cout << "Laptop not found.\n";
-}
+A - Add Laptop (New Student)  
+U - Update Laptop Serial (Lost Laptop)  
+C - Check Laptop Owner by Serial  
+F - Search Laptop by Student ID  
+O - Check Out Laptop (Student Leaving)  
+S - Display All Records  
+Q - Quit  
 
-void searchByID(string idArr[], string serialArr[], int count) {
-    string id;
-    cout << "Enter Student ID to search: ";
-    cin >> id;
-    for (int i = 0; i < 3; i++)
-        id[i] = toupper(id[i]);
+## How to Compile and Run
 
-    int index = findStudent(id, idArr, count);
-    if (index != -1) {
-        cout << "Student ID: " << idArr[index]
-             << " owns Laptop Serial: " << serialArr[index] << endl;
-    } else {
-        cout << "Student ID not found.\n";
-    }
-}
+Using g++ compiler:
 
-void checkOutLaptop(string idArr[], string serialArr[], int* count) {
-    string id, serial;
-    cout << "Enter Student ID: ";
-    cin >> id;
-    for (int i = 0; i < 3; i++)
-        id[i] = toupper(id[i]);
+g++ laptop_system.cpp -o laptop_system
+./laptop_system
+````
 
-    int index = findStudent(id, idArr, *count);
-    if (index == -1) {
-        cout << "Student ID not found.\n";
-        return;
-    }
+(Replace `laptop_system.cpp` with the actual source file name.)
 
-    cout << "Enter Laptop Serial Number: ";
-    cin >> serial;
+## Limitations
 
-    if (serialArr[index] != serial) {
-        cout << "Serial does not match the student's laptop. Cannot check out.\n";
-        return;
-    }
+* Data is stored only during program execution
+* Records are lost once the program terminates
+* Maximum number of students is fixed at runtime
 
-    for (int i = index; i < *count - 1; i++) {
-        idArr[i] = idArr[i + 1];
-        serialArr[i] = serialArr[i + 1];
-    }
-    (*count)--;
-    cout << "Laptop checked out. Student has left the university.\n";
-}
+## Possible Enhancements
 
+* Use structures or classes instead of parallel arrays
+* Add file handling for permanent storage
+* Improve input handling and error messages
+
+## Authors
+
+Group Project
 
