@@ -254,7 +254,7 @@ void checkOutLaptop(string idArr[], string serialArr[], int* count) {
     }
     (*count)--;
 
-    cout << "Student " << id << " successfully removed and laptop checked out.\n";
+    cout << "Student " << id << " Successfully removed and laptop checked out.\n";
 }
 
 /* --- Display All Registered Laptops --- */
