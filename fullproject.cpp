@@ -18,11 +18,11 @@ int main() {
     int maxStudents;
     int count = 0;
     char choice;
-
-    // Welcome message
+// The Welcome Message
     cout << "==============================================\n";
     cout << "  Welcome to Smart Campus Laptop Security System\n";
     cout << "==============================================\n";
+    
 
     /* ===== VALIDATE maxStudents ===== */
     do {
@@ -254,7 +254,7 @@ void checkOutLaptop(string idArr[], string serialArr[], int* count) {
     }
     (*count)--;
 
-    cout << "Student " << id << " successfully removed and laptop checked out.\n";
+    cout << "Student " << id << " Successfully removed and laptop checked out.\n";
 }
 
 /* --- Display All Registered Laptops --- */
