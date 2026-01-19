@@ -18,11 +18,11 @@ int main() {
     int maxStudents;
     int count = 0;
     char choice;
-
-    // Welcome message
+// The welcome Message
     cout << "==============================================\n";
     cout << "  Welcome to Smart Campus Laptop Security System\n";
     cout << "==============================================\n";
+    
 
     /* ===== VALIDATE maxStudents ===== */
     do {
